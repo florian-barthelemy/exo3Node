@@ -2,6 +2,7 @@ import readlineSync from "readline-sync";
 let produits = [{nom:"cd",prix:"4€",quantite:"5"}];
 
 function ajouterProduit(){
+    console.log("Ajout d'un produit");
     let nom = lireNom();
     let prix = lirePrix();
     let quantite = lireQuantite();
@@ -32,6 +33,7 @@ function lireQuantite(){
 }
 
 function retirerProduit(){
+    console.log("retirer produit");
     let nom = lireNom();
     let index = findIndex(nom);
     if(index !=-1){
@@ -52,4 +54,27 @@ function findIndex(nom){
    return index;
 }
 
-export default {ajouterProduit,retirerProduit}
+function miseAjourProduit(){
+    console.log("mise à jour produit");
+    let nom = lireNom();
+    let index = findIndex(nom);
+    if(index !=-1){
+        let choix = majPrixOuQuantite();
+        if(choix == "p"){
+            produits[index].prix= lirePrix(); 
+        }
+        else{
+            produits[index].quantite = lireQuantite();
+        }
+    }
+}
+
+function majPrixOuQuantite(){
+    let choix = "";
+    while(choix.toLowerCase() !="p" && choix.toLowerCase()!="q"){
+        choix = readlineSync.question("Entrez 'p' si vous voulez changer le prix, si vous voulez changer la quantite entrez 'q'");
+    }
+    return choix.toLowerCase();
+}
+
+export default {ajouterProduit,retirerProduit,miseAjourProduit}
